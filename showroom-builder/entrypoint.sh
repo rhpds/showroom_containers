@@ -23,6 +23,11 @@ cd $WORKDIR
 # Download file with wget
 # wget $URL
 
+# Merge user_data.yml into component's antora.yml
+# you'll have to mount the user_data.yml into /showroom
+# OpenShift will do it with a configMap
+yq '.asciidoc.attributes *= load("/showroom/user_data.yml")' $WORKDIR/content/antora.yml
+
 # Run antora command (adjust the playbook file as needed)
 antora site.yml
 httpd -D FOREGROUND -d /antora/repo/www
