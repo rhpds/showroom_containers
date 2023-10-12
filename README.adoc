@@ -1,0 +1,19 @@
+== Overview
+
+This repo is the home of Containerfiles (Dockerfiles) for the showroom UI/UX project. 
+It includes the following:
+
+
+* showroom-renderer: - a 1 time renderer for the showroom project
+* showroom-developer: - A render and live re-render service for the showroom project
+
+Services:
+
+=== Toolchain
+
+├── Containerfile
+├── Makefile
+├── README.adoc
+└── entrypoint.sh
+
+0 directories, 4 files
