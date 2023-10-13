@@ -4,7 +4,6 @@ FROM registry.access.redhat.com/ubi9
 # Install necessary tools
 RUN dnf install -y \
     git \
-    httpd \
     nodejs \
     wget && \
     dnf clean all
@@ -35,4 +34,3 @@ USER antora
 EXPOSE 80
 # Set the entrypoint script as the command to run when the container starts
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash"]
