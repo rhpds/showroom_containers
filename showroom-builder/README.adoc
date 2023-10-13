@@ -1,0 +1,31 @@
+== Overview
+
+Build the container:
+
+ docker build -t showroom-allinone .
+
+Run the container:
+
+ docker run -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -it showroom-allinone
+
+Access the output on your host at ./showroom/www/index.html
+
+== TODO
+* setup httpd
+* allow multiple runs of `git clone` against /showroom/repo/
+
+== Change Log
+
+====
+* Date: 2023-10-12 Author: jmaltin
+
+*Major entrypoint.sh update*
+
+    * combine all volumes into one /showroom
+    * update README with mounting instructions for /showroom
+    * clone repo into /showroom/repo
+    * pick up user_data from /showroom/user_data/user_data.yml
+    * run yp with in-place on /showroom/repo/content/antora.yml to merge in
+      /showroom/user_data/user_data.yml
+    * antora generate: output forced to /showroom/www/
+====
