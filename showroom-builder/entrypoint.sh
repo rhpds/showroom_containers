@@ -42,6 +42,7 @@ echo "Run antora site.yml"
 antora --to-dir=/showroom/www/ site.yml
 
 echo "Run httpd"
-httpd -D FOREGROUND -d /showroom/www/
+cd /showroom/www/
+python3 -m http.server
 
 # Additional commands or logic can be added here if needed
