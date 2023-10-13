@@ -5,6 +5,10 @@ if [ -z "$GIT_REPO_URL" ]; then
   exit 1
 fi
 
+if [ -z "$ANTORA_PLAYBOOK" ]; then
+  echo "ANTORA_PLAYBOOK not defined.  Falling back to ANTORA_PLAYBOOK=site.yml"
+  ANTORA_PLAYBOOK="site.yml"
+fi
 # Setup working directory for cloning and rendering
 
 # WORKDIR=/home/antora/repo
@@ -39,7 +43,8 @@ echo
 
 # Run antora command (adjust the playbook file as needed)
 echo "Run antora site.yml"
-antora --to-dir=/showroom/www/ site.yml
+
+antora --to-dir=/showroom/www/ $ANTORA_PLAYBOOK
 
 echo "Run httpd"
 cd /showroom/www/
