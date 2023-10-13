@@ -13,7 +13,7 @@ WORKDIR=/showroom/repo
 
 echo
 echo "git clone the $GIT_REPO_URL into $WORKDIR"
-git clone $GIT_REPO_URL $WORKDIR
+git clone $GIT_REPO_URL $WORKDIR || cd $WORKDIR && git pull
 cd $WORKDIR
 
 # Extract the name of the repository to use as the working directory
