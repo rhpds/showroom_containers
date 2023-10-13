@@ -12,7 +12,7 @@ Access the output on your host at ./showroom/www/index.html
 
 == TODO
 * setup httpd
-* allow multiple runs of `git clone` against /showroom/repo/
+* DONE: allow multiple runs of `git clone` against /showroom/repo/
 
 == Change Log
 
