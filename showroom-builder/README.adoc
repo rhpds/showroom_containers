@@ -20,15 +20,24 @@ Asciidoc attributes:
 * This container will merge YAML in /user_data/user_data.yml and /content/antora.yml to provide asciidoc attributes to your Antora component
 * TODO: create mechanism to support multiple components
 
-=== Quickstart
+=== Quickstart Container Runtime
 
 Build the container:
 
  podman build -t showroom-allinone .
 
+Prepare local directories and files
+
+ mkdir repo user_data
+
+Put user data into place.
+Here I just create dummy data, because I don't have a file:
+
+ echo "attribute_name: attribute_value" > user_data/user_data.yml
+
 Run the container:
 
- podman run -d -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -p8000:8000 -it showroom-allinone
+ podman run -d -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -v $PWD/user_data/:/user_data/ -p8000:8000 -it showroom-allinone
 
 NOTE:  You can change the ANTORA_PLAYBOOK by setting that environemnt variable to the filename of the antora playbook in the git repo
 
