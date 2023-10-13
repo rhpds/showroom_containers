@@ -1,5 +1,24 @@
 == Overview
 
+=== Quickstart
+
+Asciidoc attributes:
+* This container will merge YAML in /user_data/user_data.yml and /content/antora.yml to provide asciidoc attributes to your Antora component
+* TODO: create mechanism to support multiple components
+
+Prereqs:
+* git repo in Antora format with Asciidoc of your content
+** /site.yml is the default Antora Playbook, set env var ANTORA_PLAYBOOK to override
+** /content/antora.yml for your component.
+
+* Volumes Needed:
+** Git clone: /showroom/repo
+** Antora HTML output: /showroom/www
+** User Data
+*** OpenShift: ConfigMap of user_data as volume mounted on /user_data/user_data.yml with agnosticD user_data
+*** Podman/Docker: Empty Volume on /showroom/ for /showroom/repo and /showroom/www
+
+
 Build the container:
 
  docker build -t showroom-allinone .
@@ -30,9 +49,9 @@ http://localhost:8000
     * combine all volumes into one /showroom
     * update README with mounting instructions for /showroom
     * clone repo into /showroom/repo
-    * pick up user_data from /showroom/user_data/user_data.yml
+    * pick up user_data from /user_data/user_data.yml
     * run yp with in-place on /showroom/repo/content/antora.yml to merge in
-      /showroom/user_data/user_data.yml
+      /user_data/user_data.yml
     * antora generate: output forced to /showroom/www/
     * use python built in http server on port 8000
 ====

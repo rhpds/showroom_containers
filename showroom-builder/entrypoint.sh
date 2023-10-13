@@ -32,10 +32,10 @@ cd $WORKDIR
 # Merge user_data.yml into component's antora.yml
 # you'll have to mount the user_data.yaml into /showroom
 # OpenShift will do it with a configMap
-if test -r /showroom/user_data/user_data.yml
+if test -r /user_data/user_data.yml
 then
   echo "NOW editing user_data.yml"
-  yq -i '.asciidoc.attributes *= load("/showroom/user_data/user_data.yml")' $WORKDIR/content/antora.yml
+  yq -i '.asciidoc.attributes *= load("/user_data/user_data.yml")' $WORKDIR/content/antora.yml
 fi
 echo "user_data in content/antora.yml"
 cat $WORKDIR/content/antora.yml
