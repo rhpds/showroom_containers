@@ -8,9 +8,11 @@ fi
 # Setup working directory for cloning and rendering
 
 # WORKDIR=/home/antora/repo
-WORKDIR=/repo
+WORKDIR=/showroom/repo
 #mkdir -p $WORKDIR
 
+echo
+echo "git clone the $GIT_REPO_URL into $WORKDIR"
 git clone $GIT_REPO_URL $WORKDIR
 cd $WORKDIR
 
@@ -26,13 +28,20 @@ cd $WORKDIR
 # Merge user_data.yml into component's antora.yml
 # you'll have to mount the user_data.yaml into /showroom
 # OpenShift will do it with a configMap
-if [ -r /showroom/user_data.yml ]
+if test -r /showroom/user_data/user_data.yml
 then
-  yq '.asciidoc.attributes *= load("/showroom/user_data.yml")' $WORKDIR/content/antora.yml
+  echo "NOW editing user_data.yml"
+  yq -v -i '.asciidoc.attributes *= load("/showroom/user_data/user_data.yml")' $WORKDIR/content/antora.yml
 fi
+echo "user_data in content/antora.yml"
+cat $WORKDIR/content/antora.yml
+echo
 
 # Run antora command (adjust the playbook file as needed)
-antora site.yml
-httpd -D FOREGROUND -d /antora/www
+echo "Run antora site.yml"
+antora --to-dir=/showroom/www/ site.yml
+
+echo "Run httpd"
+httpd -D FOREGROUND -d /showroom/www/
 
 # Additional commands or logic can be added here if needed
