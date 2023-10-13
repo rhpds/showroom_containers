@@ -1,31 +1,34 @@
 == Overview
 
-=== Quickstart
+This container takes Antora-based content git repos, does attribute injection, generates HTML and launches a trivial web server to host it.
+
+===
+
+Prereqs:
+* git repo in Antora format with Asciidoc of your content
+** Example: https://github.com/rhpds/showroom_template_default
+** /site.yml is the default Antora Playbook, set env var ANTORA_PLAYBOOK to override
+** /content/antora.yml for your component.
+* Volumes:
+** Git clone: /showroom/repo
+** Antora HTML output: /showroom/www
+** User Data
+*** OpenShift: ConfigMap (preferably) of AgnosticD user_data as volume mounted on /user_data/user_data.yml with agnosticD user_data
+*** Podman/Docker: Empty Volume on /showroom/ for /showroom/repo and /showroom/www
 
 Asciidoc attributes:
 * This container will merge YAML in /user_data/user_data.yml and /content/antora.yml to provide asciidoc attributes to your Antora component
 * TODO: create mechanism to support multiple components
 
-Prereqs:
-* git repo in Antora format with Asciidoc of your content
-** /site.yml is the default Antora Playbook, set env var ANTORA_PLAYBOOK to override
-** /content/antora.yml for your component.
-
-* Volumes Needed:
-** Git clone: /showroom/repo
-** Antora HTML output: /showroom/www
-** User Data
-*** OpenShift: ConfigMap of user_data as volume mounted on /user_data/user_data.yml with agnosticD user_data
-*** Podman/Docker: Empty Volume on /showroom/ for /showroom/repo and /showroom/www
-
+=== Quickstart
 
 Build the container:
 
- docker build -t showroom-allinone .
+ podman build -t showroom-allinone .
 
 Run the container:
 
- docker run -d -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -p8000:8000 -it showroom-allinone
+ podman run -d -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -p8000:8000 -it showroom-allinone
 
 NOTE:  You can change the ANTORA_PLAYBOOK by setting that environemnt variable to the filename of the antora playbook in the git repo
 
