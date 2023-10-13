@@ -6,12 +6,17 @@ Build the container:
 
 Run the container:
 
- docker run -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -it showroom-allinone
+ docker run -d -e GIT_REPO_URL=https://github.com/rhpds/aro-ilt -v $PWD/showroom/:/showroom/ -p8000:8000 -it showroom-allinone
 
-Access the output on your host at ./showroom/www/index.html
+NOTE:  You can change the ANTORA_PLAYBOOK by setting that environemnt variable to the filename of the antora playbook in the git repo
+
+Access the website:
+
+http://localhost:8000
 
 == TODO
-* setup httpd
+
+* DONE: setup httpd
 * DONE: allow multiple runs of `git clone` against /showroom/repo/
 
 == Change Log
@@ -21,6 +26,7 @@ Access the output on your host at ./showroom/www/index.html
 
 *Major entrypoint.sh update*
 
+    * env var ANTORA_PLAYBOOK accepted, defaults to site.yml
     * combine all volumes into one /showroom
     * update README with mounting instructions for /showroom
     * clone repo into /showroom/repo
@@ -28,4 +34,5 @@ Access the output on your host at ./showroom/www/index.html
     * run yp with in-place on /showroom/repo/content/antora.yml to merge in
       /showroom/user_data/user_data.yml
     * antora generate: output forced to /showroom/www/
+    * use python built in http server on port 8000
 ====
